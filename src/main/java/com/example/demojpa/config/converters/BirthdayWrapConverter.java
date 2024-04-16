@@ -2,10 +2,12 @@ package com.example.demojpa.config.converters;
 
 import com.example.demojpa.repos.domain.BirthdayWrap;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 import java.sql.Date;
 import java.util.Optional;
 
+@Converter(autoApply = true)
 public class BirthdayWrapConverter implements AttributeConverter<BirthdayWrap, Date> {
 
     @Override
