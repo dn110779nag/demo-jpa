@@ -4,5 +4,6 @@ create table users(
     birthday date,
     role varchar(32),
     tlm timestamp,
-    created timestamp
+    created timestamp,
+    additional_info jsonb
 );

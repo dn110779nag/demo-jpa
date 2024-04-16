@@ -4,12 +4,16 @@ import com.example.demojpa.repos.domain.BirthdayWrap;
 import com.example.demojpa.repos.domain.Role;
 import com.example.demojpa.repos.domain.User;
 import com.example.demojpa.tcutil.BasicTestContainerTest;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.as;
@@ -29,11 +33,15 @@ class UserRepositoryTest extends BasicTestContainerTest {
     }
 
     @Test
-    void saveAndFind() {
+    void saveAndFind() throws IOException {
+        ObjectMapper om = new ObjectMapper();
         User user = User.builder()
                 .name("Тестовый Тест Тестович")
                 .birthday(new BirthdayWrap(LocalDate.of(2000, 10, 12)))
                 .role(Role.ADMIN)
+                .additionalInfo(om.readValue("""
+                        {"key": "value"}
+                        """, Map.class))
                 .build();
 
         User saved = instance.saveAndFlush(user);
