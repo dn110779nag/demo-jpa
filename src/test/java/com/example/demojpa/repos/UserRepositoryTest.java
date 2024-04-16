@@ -59,6 +59,7 @@ class UserRepositoryTest extends BasicTestContainerTest {
                     assertThat(e.getName()).isEqualTo("Тестовый Тест Тестович");
                     assertThat(e.getCreated()).isNotNull();
                     assertThat(e.getTlm()).isNotNull();
+                    assertThat(e.getAdditionalInfo()).isEqualTo(Map.of("key", "value"));
                 });
         ;
     }
