@@ -1,5 +1,6 @@
 package com.example.demojpa.repos;
 
+import com.example.demojpa.repos.domain.BirthdayWrap;
 import com.example.demojpa.repos.domain.Role;
 import com.example.demojpa.repos.domain.User;
 import com.example.demojpa.tcutil.BasicTestContainerTest;
@@ -31,7 +32,7 @@ class UserRepositoryTest extends BasicTestContainerTest {
     void saveAndFind() {
         User user = User.builder()
                 .name("Тестовый Тест Тестович")
-                .birthday(LocalDate.of(2000, 10, 12))
+                .birthday(new BirthdayWrap(LocalDate.of(2000, 10, 12)))
                 .role(Role.ADMIN)
                 .build();
 
@@ -46,7 +47,7 @@ class UserRepositoryTest extends BasicTestContainerTest {
                 .isPresent()
                 .hasValueSatisfying( e -> {
                     assertThat(e.getRole()).isEqualTo(Role.ADMIN);
-                    assertThat(e.getBirthday()).isEqualTo(LocalDate.of(2000, 10, 12));
+                    assertThat(e.getBirthday()).isEqualTo(new BirthdayWrap(LocalDate.of(2000, 10, 12)));
                     assertThat(e.getName()).isEqualTo("Тестовый Тест Тестович");
                     assertThat(e.getCreated()).isNotNull();
                     assertThat(e.getTlm()).isNotNull();

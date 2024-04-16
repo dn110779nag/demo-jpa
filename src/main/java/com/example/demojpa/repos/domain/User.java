@@ -1,6 +1,8 @@
 package com.example.demojpa.repos.domain;
 
 
+import com.example.demojpa.config.converters.BirthdayWrapConverter;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -33,7 +35,8 @@ public class User {
     private Long id;
 
     private String name;
-    private LocalDate birthday;
+    @Convert(converter = BirthdayWrapConverter.class)
+    private BirthdayWrap birthday;
 
     @Enumerated(EnumType.STRING)
     private Role role;
